@@ -22,7 +22,9 @@ Explain
 ## Hyperparams
 
 ## Training log
-![training_visual](images/training_visual.gif)
+<p align= "center">
+  <img src="images/training_visual.gif/">
+</p>
 ```
 
 Average reward after 100 episodes : 0.6 
