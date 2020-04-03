@@ -16,10 +16,11 @@ class ObservationSpace:
 
 class BananaEnv:
     def __init__(self, path_to_env, train=True, render=False):
-        if render:
+        if (render):
             no_graphics = False
         else:
             no_graphics = True
+
         self.env_ = UnityEnvironment(file_name=path_to_env, no_graphics=no_graphics)
         self.brain_name = self.env_.brain_names[0] # get the default brain
         self.brain = self.env_.brains[self.brain_name]
