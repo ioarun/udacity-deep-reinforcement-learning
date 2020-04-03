@@ -51,7 +51,9 @@ Unzip the file and place it in the `class-projects/p1_navigation/` folder, and u
 3. Render - To render the environment, `--render` can be added in the command line.
 
 ## Results
-![training_plot](images/training.png)
+<p align= "center">
+  <img src="images/training.png">
+</p>
 
 
 
