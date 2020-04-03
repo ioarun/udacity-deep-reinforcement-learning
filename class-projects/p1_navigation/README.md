@@ -36,7 +36,7 @@ Unzip the file and place it in the `class-projects/p1_navigation/` folder, and u
 
 ## Installation
 
-1. Change the directory to `class-projects/` using this command in the terminal - `cd class-projects/`
+1. Change the directory to `class-projects/p1_navigation/` using this command in the terminal - `cd class-projects/`
 2. Install the dependencies by running the following command - `sh ./install.sh` 
 
 ## Usage
