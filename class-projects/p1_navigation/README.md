@@ -6,7 +6,9 @@
 
 In this project, we will train an agent to navigate (and collect bananas!) in a large, square world.  
 
-![trained_agent]('images/testing_visual.gif')
+<p align= "center">
+  <img src="images/testing_visual.gif/">
+</p>
 
 A reward of +1 is provided for collecting a yellow banana, and a reward of -1 is provided for collecting a blue banana.  Thus, the goal of our agent is to collect as many yellow bananas as possible while avoiding blue bananas.  
 
