@@ -15,8 +15,10 @@ The task is episodic, and in order to solve the environment, your agent must get
 The task is episodic, and in order to solve the environment, your agent must get an average score of +13 over 100 consecutive episodes.
 
 ## Algorithm - Deep Q-Learning
-
-
+<p align= "center">
+  <img src="images/training_visual.gif/">
+</p>
+**Reference** - *Mnih, Volodymyr, Koray Kavukcuoglu, David Silver, Alex Graves, Ioannis Antonoglou, Daan Wierstra, and Martin Riedmiller. "Playing atari with deep reinforcement learning." arXiv preprint arXiv:1312.5602 (2013).*
 ## Architecture
 ```
 QNetwork(
