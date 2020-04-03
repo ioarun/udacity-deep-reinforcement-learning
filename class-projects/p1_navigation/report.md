@@ -68,10 +68,15 @@ Saving network models at episode 419
 </p>
 
 ## Training curve
-![training_plot](images/training.png)
+<p align= "center">
+  <img src="images/training.png">
+</p>
+
 
 ## Test output
-![testing_visual](images/testing_visual.gif)
+<p align= "center">
+  <img src="images/testing_visual.gif">
+</p>
 
 ## Conclusion
 Deep Q-Learning agent was able to successfully the Banana Environent in 419 episodes.
