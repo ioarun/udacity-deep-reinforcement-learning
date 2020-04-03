@@ -46,6 +46,7 @@ Unzip the file and place it in the `class-projects/p1_navigation/` folder, and u
 1. Train (default) - `python navigation.py` 
 2. Test - `python navigation.py --test`
 3. Render - To render the environment, `--render` can be added in the command line.
+
 If you want to change any hyperparameters, you can change it in `constants.py`
 
 ## Results
