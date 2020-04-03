@@ -51,14 +51,6 @@ Unzip the file and place it in the `class-projects/p1_navigation/` folder, and u
 3. Render - To render the environment, `--render` can be added in the command line.
 
 ## Results
-```
-Average reward after 100 episodes : 0.6 
-Average reward after 200 episodes : 4.14 
-Average reward after 300 episodes : 9.28 
-Average reward after 400 episodes : 12.43 
-Average Score: 13.04 Solved in 419 episodes!
-Saving network models at episode 419
-```
 ![training_plot](images/training.png)
 
 
