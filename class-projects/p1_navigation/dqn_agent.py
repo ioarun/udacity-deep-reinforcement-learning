@@ -207,7 +207,7 @@ class DQNAgent:
                     reward_buffer.append(reward_sum)
                     print('\rEpisode {}\t Reward: {:.2f}'.format(i+1, reward_sum), end="")
                     break
-        self.plot(self.reward_per_episode, 'Testing', 'images/testing.png')
+        # self.plot(self.reward_per_episode, 'Testing', 'images/testing.png')
         print('\rAverage Reward: {:.2f}'.format(np.mean(np.array(reward_sum))), end="")
 
     def plot(self, reward_buffer, title, plot_name):
