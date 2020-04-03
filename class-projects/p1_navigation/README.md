@@ -1,6 +1,7 @@
 [//]: # (Image References)
 
 # Project 1: Navigation
+This project requires Python3 and PyTorch.
 
 ## Introduction
 
@@ -36,8 +37,7 @@ If you are running a x86_64 linux machine as I'm doing, you can skip this step.
     
 Unzip the file and place it in the `class-projects/p1_navigation/` folder, and unzip (or decompress) the file.
 
-## Installation
-
+## Installation 
 1. Change the directory to `class-projects/p1_navigation/` using this command in the terminal - `cd class-projects/`
 2. Install the dependencies by running the following command - `sh ./install.sh` 
 
