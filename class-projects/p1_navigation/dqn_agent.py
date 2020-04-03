@@ -14,12 +14,18 @@ device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 class ReplayBuffer:
     def __init__(self):
+        '''
+        Initialize replay buffer
+        '''
         self.buffer_size = REPLAY_BUFFER_SIZE
         self.buffer = []
         self.seed = random.seed(0)
         self.experience = namedtuple("Experience", field_names=["state", "action", "reward", "next_state", "done"])
 
     def append(self, experience):
+        '''
+        Add experience [s, a, r, s'] in the replay buffer
+        '''
         if len(self.buffer) > self.buffer_size:
             self.buffer.pop(0)
         e = self.experience(experience[0], experience[1], experience[2], experience[3], \
@@ -27,11 +33,18 @@ class ReplayBuffer:
         self.buffer.append(e)
 
     def sample(self, n):
+        '''
+        Sample n [s, a, r, s'] transitions from replay buffer
+        '''
         samples = random.sample(self.buffer, n)
         return samples
 
 class DQNAgent:
     def __init__(self, env, train=True, seed=0):
+        '''
+        Initialize the DQN Agent.
+        Train or Test depending on whether train=True or not.
+        '''
         self.train = train
         self.seed = random.seed(seed)
         self.env = env
@@ -56,7 +69,6 @@ class DQNAgent:
 
         # TRAIN
         if self.train:
-          
             if path.exists(CHECKPOINT_PATH):
                 model_dict, running_episode, reward_per_episode = self.load_models('train')
                 self.qnetwork_local.load_state_dict(model_dict)
@@ -77,6 +89,9 @@ class DQNAgent:
                 print ("Model not found! Check the MODEL_PATH in constants.py.")
 
     def save_models(self):
+        '''
+        Save models to a checkpoint.
+        '''
         checkpoint = {
         'input_size': self.qnetwork_local.input_size,
         'output_size': self.qnetwork_local.output_size,
@@ -89,6 +104,11 @@ class DQNAgent:
         torch.save(checkpoint, CHECKPOINT_PATH)
 
     def load_models(self, train_or_test):
+        '''
+        Load models from the CHECKPOINT_PATH or
+        TRAINED_MODEL_PATH depending on whether the
+        task is to train or to test.
+        '''
         print ("Loading models ...")
         if train_or_test == 'train':
         	checkpoint = torch.load(CHECKPOINT_PATH)
@@ -101,6 +121,9 @@ class DQNAgent:
         return model_state_dict, running_episode, reward_per_episode
 
     def epsilon_greedy_policy(self, state, epsilon):
+        '''
+        Choose action e-greedily. 
+        '''
         if random.random() < epsilon: # exploration
             action = self.env.action_space.sample()
         else:
@@ -143,7 +166,11 @@ class DQNAgent:
         loss.backward()
         self.optimizer.step()
 
+
     def update_target_network(self, qnetwork_local, qnetwork_target):
+        '''
+        Soft update of the target network
+        '''
         # self.qnetwork_target.load_state_dict(self.qnetwork_local.state_dict())
         for target_param, local_param in zip(qnetwork_target.parameters(), qnetwork_local.parameters()):
             target_param.data.copy_(self.tau*local_param.data + (1.0-self.tau)*target_param.data)
@@ -205,9 +232,10 @@ class DQNAgent:
                 state = next_state
                 if done:
                     reward_buffer.append(reward_sum)
+                    self.reward_per_episode.append(reward_sum)
                     print('\rEpisode {}\t Reward: {:.2f}'.format(i+1, reward_sum), end="")
                     break
-        # self.plot(self.reward_per_episode, 'Testing', 'images/testing.png')
+        self.plot(self.reward_per_episode, 'Testing', 'images/testing.png')
         print('\rAverage Reward: {:.2f}'.format(np.mean(np.array(reward_sum))), end="")
 
     def plot(self, reward_buffer, title, plot_name):
