@@ -16,7 +16,7 @@ The task is episodic, and in order to solve the environment, your agent must get
 
 ## Algorithm - Deep Q-Learning
 <p align= "center">
-  <img src="images/training_visual.gif/">
+  <img src="images/dqn_algo.jpg">
 </p>
 
 **Reference** - *Mnih, Volodymyr, Koray Kavukcuoglu, David Silver, Alex Graves, Ioannis Antonoglou, Daan Wierstra, and Martin Riedmiller. "Playing atari with deep reinforcement learning." arXiv preprint arXiv:1312.5602 (2013).*
