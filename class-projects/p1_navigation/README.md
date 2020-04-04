@@ -1,6 +1,7 @@
 [//]: # (Image References)
 
 # Project 1: Navigation
+This project requires Python3 and PyTorch.
 
 ## Introduction
 
@@ -21,6 +22,9 @@ The state space has 37 dimensions and contains the agent's velocity, along with 
 ## Goal
 
 The task is episodic, and in order to solve the environment, the agent must get an average score of +13 over 100 consecutive episodes.
+
+
+This project requires 
 
 ## Downloads
 
