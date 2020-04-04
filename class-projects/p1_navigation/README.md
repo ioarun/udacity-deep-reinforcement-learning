@@ -40,15 +40,14 @@ If you are running a x86_64 linux machine as I'm doing, you can skip this step.
     
 Unzip the file and place it in the `class-projects/p1_navigation/` folder, and unzip (or decompress) the file.
 
-## Installation
-
+## Installation 
 1. Change the directory to `class-projects/p1_navigation/` using this command in the terminal - `cd class-projects/`
 2. Install the dependencies by running the following command - `sh ./install.sh` 
 
 ## Usage
 
-1. Train (default) - `python navigation.py` 
-2. Test - `python navigation.py --test`
+1. Train - `python navigation.py --train` 
+2. Test - `python navigation.py --test --render`
 3. Render - To render the environment, `--render` can be added in the command line.
 
 If you want to change any hyperparameters, you can change it in `constants.py`
