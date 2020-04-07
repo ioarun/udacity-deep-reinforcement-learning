@@ -64,7 +64,7 @@ torch.load(CHECKPOINT_PATH, map_location=map_location)
 ## Results
 
 <p align= "center">
-  <img src="images/training_visual.png">
+  <img src="images/training_visual.gif">
 </p>
 
 
