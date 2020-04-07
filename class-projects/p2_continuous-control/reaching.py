@@ -6,15 +6,11 @@ import random
 import time
 import torch
 from unityagents import UnityEnvironment
-
-env = UnityEnvironment(file_name='Reacher_Linux/Reacher.x86_64', no_graphics=True)
-# get the default brain
-brain_name = env.brain_names[0]
-brain = env.brains[brain_name]
+import argparse
 
 # DDPG function
 
-def ddpg(n_episodes=500, max_t=1000, solved_score=30.0, consec_episodes=100, print_every=1, train_mode=True,
+def ddpg(env, agent, n_episodes=500, max_t=1000, solved_score=30.0, consec_episodes=100, print_every=1, train_mode=False,
          actor_path='checkpoint/actor_ckpt.pth', critic_path='checkpoint/critic_ckpt.pth'):
     """Deep Deterministic Policy Gradient (DDPG)
     
@@ -30,6 +26,16 @@ def ddpg(n_episodes=500, max_t=1000, solved_score=30.0, consec_episodes=100, pri
         critic_path (str)     : directory to store critic network weights
 
     """
+    # get the default brain
+    brain_name = env.brain_names[0]
+    brain = env.brains[brain_name]
+    num_agents = 20
+
+    if (train_mode):
+        ADD_NOISE = True
+    else:
+        ADD_NOISE = False
+
     mean_scores = []                               # list of mean scores from each episode
     min_scores = []                                # list of lowest scores from each episode
     max_scores = []                                # list of highest scores from each episode
@@ -44,14 +50,15 @@ def ddpg(n_episodes=500, max_t=1000, solved_score=30.0, consec_episodes=100, pri
         agent.reset()
         start_time = time.time()
         for t in range(max_t):
-            actions = agent.act(states, add_noise=True)         # select an action
+            actions = agent.act(states, add_noise=ADD_NOISE)         # select an action
             env_info = env.step(actions)[brain_name]            # send actions to environment
             next_states = env_info.vector_observations          # get next state
             rewards = env_info.rewards                          # get reward
             dones = env_info.local_done                         # see if episode has finished
             # save experience to replay buffer, perform learning step at defined interval
-            for state, action, reward, next_state, done in zip(states, actions, rewards, next_states, dones):
-                agent.step(state, action, reward, next_state, done, t)             
+            if (train_mode):
+                for state, action, reward, next_state, done in zip(states, actions, rewards, next_states, dones):
+                    agent.step(state, action, reward, next_state, done, t)             
             states = next_states
             scores += rewards        
             if np.any(dones):                                   # exit loop when episode ends
@@ -72,7 +79,7 @@ def ddpg(n_episodes=500, max_t=1000, solved_score=30.0, consec_episodes=100, pri
             torch.save(agent.actor_local.state_dict(), actor_path)
             torch.save(agent.critic_local.state_dict(), critic_path)
                   
-        if moving_avgs[-1] >= solved_score and i_episode >= consec_episodes:
+        if train_mode and moving_avgs[-1] >= solved_score and i_episode >= consec_episodes:
             print('\nEnvironment SOLVED in {} episodes!\tMoving Average ={:.1f} over last {} episodes'.format(\
                                     i_episode-consec_episodes, moving_avgs[-1], consec_episodes))            
             if train_mode:
@@ -82,8 +89,27 @@ def ddpg(n_episodes=500, max_t=1000, solved_score=30.0, consec_episodes=100, pri
             
     return mean_scores, moving_avgs
 
-state_size = 33
-action_size = 4
-num_agents = 20
-agent = Agent(state_size=state_size, action_size=action_size, random_seed=1)
-scores, avgs = ddpg()
+parser = argparse.ArgumentParser(description='This is a DDPG Project!')
+
+def main(args):
+    train = args.train
+    render = args.render
+    if render:
+        no_graphics = False
+    else:
+        no_graphics = True
+
+    
+    env = UnityEnvironment(file_name='Reacher_Linux/Reacher.x86_64', no_graphics=no_graphics)
+
+    state_size = 33
+    action_size = 4
+    agent = Agent(state_size=state_size, action_size=action_size, random_seed=1, train=train)
+    scores, avgs = ddpg(env, agent, train_mode=train)
+
+if __name__=='__main__':
+    parser.add_argument('--train', action='store_true', default=False, help='Train or Test? Default is True.')
+    parser.add_argument('--render', action='store_true', default=False)
+    args = parser.parse_args()
+    main(args)
+

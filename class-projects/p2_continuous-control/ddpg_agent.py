@@ -28,7 +28,7 @@ device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 class Agent():
     """Interacts with and learns from the environment."""
 
-    def __init__(self, state_size, action_size, random_seed):
+    def __init__(self, state_size, action_size, random_seed, train=False):
         """Initialize an Agent object.
 
         Params
@@ -45,11 +45,24 @@ class Agent():
         # Actor Network (w/ Target Network)
         self.actor_local = Actor(state_size, action_size, random_seed).to(device)
         self.actor_target = Actor(state_size, action_size, random_seed).to(device)
+        if torch.cuda.is_available():
+            map_location=lambda storage, loc: storage.cuda()
+        else:
+            map_location='cpu'
+        if (not train):
+            dict_ = torch.load('checkpoint/actor_ckpt.pth', map_location=map_location)
+            self.actor_local.load_state_dict(dict_)
+            self.actor_target.load_state_dict(dict_)
+        
         self.actor_optimizer = optim.Adam(self.actor_local.parameters(), lr=LR_ACTOR)
 
         # Critic Network (w/ Target Network)
         self.critic_local = Critic(state_size, action_size, random_seed).to(device)
         self.critic_target = Critic(state_size, action_size, random_seed).to(device)
+        if (not train):
+            dict_ = torch.load('checkpoint/critic_ckpt.pth', map_location=map_location)
+            self.critic_local.load_state_dict(dict_)
+            self.critic_target.load_state_dict(dict_)
         self.critic_optimizer = optim.Adam(self.critic_local.parameters(), lr=LR_CRITIC, weight_decay=WEIGHT_DECAY)
 
         # Noise process
