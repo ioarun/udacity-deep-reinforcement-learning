@@ -53,18 +53,18 @@ Unzip the file and place it in the `class-projects/p2_continuous-control/` folde
 
 **Note** - If you get following error during loading the models - `RuntimeError: cuda runtime error (35) : CUDA driver version is insufficient for CUDA runtime version at torch/csrc/cuda/Module.cpp:51
 `, then do the following - 
-`
+```
 if torch.cuda.is_available():
 	map_location=lambda storage, loc: storage.cuda()
 else:
 	map_location='cpu'
 torch.load(CHECKPOINT_PATH, map_location=map_location)
-`
+```
 
 ## Results
 
 <p align= "center">
-  <img src="images/training_visual.png">
+  <img src="images/training_plot.png">
 </p>
 
 
