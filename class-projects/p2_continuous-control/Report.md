@@ -85,5 +85,5 @@ Environment SOLVED in 12 episodes!	Moving Average =30.0 over last 100 episodes
 </p>
 
 ## Conclusion
-DDPG agent was able to successfully solve the Reacher Environent in 419 episodes.
+DDPG agent was able to successfully solve the Reacher Environent in 108 episodes.
 
