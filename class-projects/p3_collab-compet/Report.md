@@ -98,7 +98,7 @@ Saved Model: Episode 3795       Average Score: 0.51
 </p>
 
 ## Conclusion
-MADDPG agent was able to successfully solve the Reacher Environent in 419 episodes.
+MADDPG agent was able to successfully solve the Reacher Environent in 3795 episodes.
 
 ## Future Improvement
 We can explore the Proximal Policy Optimization(PPO) algorithm in the Mult-Agent setting.
